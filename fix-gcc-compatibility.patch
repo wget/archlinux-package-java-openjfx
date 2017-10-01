@@ -1,0 +1,19 @@
+--- a/modules/fxpackager/src/main/native/library/common/PosixPlatform.cpp	2017-09-08 18:56:55.000000000 +0200
++++ b/modules/fxpackager/src/main/native/library/common/PosixPlatform_fix.cpp	2017-10-01 17:34:26.538976311 +0200
+@@ -46,6 +46,7 @@
+ #include <iostream>
+ #include <dlfcn.h>
+ #include <signal.h>
++#include <sys/wait.h>
+ 
+ 
+ PosixPlatform::PosixPlatform(void) {
+@@ -232,7 +233,7 @@
+ 
+     //TODO Use waitpid instead of wait
+ #ifdef LINUX
+-    wait();
++    wait(&status);
+ #endif
+ #ifdef MAC
+     wpid = wait(&status);
